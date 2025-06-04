@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eid Mubarak! Special Greetings</title>
+    <style>
+        :root {
+            --primary-color: #0a4a70; /* Dark Blue */
+            --secondary-color: #f0c040; /* Gold */
+            --accent-color: #ffffff; /* White */
+            --text-color: #333;
+            --success-color: #28a745;
+            --background-gradient-start: #001f3f; /* Navy */
+            --background-gradient-end: #003366; /* Darker Blue */
+            --glow-color: rgba(240, 192, 64, 0.7); /* Gold for glow */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--background-gradient-start), var(--background-gradient-end));
+            color: var(--accent-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative; 
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle, rgba(255,255,255,0.2) 0.8px, transparent 0.8px),
+                radial-gradient(circle, rgba(255,255,255,0.15) 0.8px, transparent 0.8px);
+            background-size: 40px 40px, 60px 60px;
+            background-position: 0 0, 20px 20px;
+            opacity: 0.4;
+            z-index: -1;
+            animation: twinkleStars 60s linear infinite;
+        }
+
+        @keyframes twinkleStars {
+            0% { background-position: 0 0, 20px 20px; }
+            100% { background-position: 400px 400px, 460px 460px; } 
+        }
+        
+        .container {
+            background-color: rgba(10, 40, 70, 0.85); 
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            max-width: 90%;
+            width: 600px;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--secondary-color);
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 5px rgba(0,0,0,0.6);
+        }
+
+        .video-player-container {
+            margin-bottom: 20px;
+            background: #000; /* Fallback if video doesn't load or for aspect ratio boxing */
+            border-radius: 10px;
+            overflow: hidden;
+            animation: pulseGlow 2.5s infinite alternate ease-in-out;
+            position: relative;
+            line-height: 0; /* Remove space if video fails to load and alt text shows */
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 8px var(--glow-color), 
+                            0 0 15px var(--glow-color),
+                            0 0 20px var(--secondary-color);
+            }
+            100% {
+                box-shadow: 0 0 15px var(--glow-color), 
+                            0 0 30px var(--glow-color),
+                            0 0 45px var(--secondary-color);
+            }
+        }
+
+        #eidVideo {
+            width: 100%;
+            height: auto; 
+            border-radius: 10px; 
+            display: block; 
+        }
+
+        .video-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .video-controls button {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .video-controls button:hover {
+            background-color: #e0b030; 
+            transform: translateY(-2px);
+        }
+        .video-controls button:active {
+            transform: translateY(0px);
+        }
+
+        .personalization-area {
+            margin-top: 25px;
+        }
+
+        #userName {
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid var(--secondary-color);
+            font-size: 1em;
+            width: calc(100% - 30px); 
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            background-color: rgba(255,255,255,0.1);
+            color: var(--accent-color);
+        }
+        #userName::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        #generateGreeting, #shareWhatsApp {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        #generateGreeting:hover, #shareWhatsApp:hover {
+            background-color: #218838; 
+            transform: translateY(-2px);
+        }
+        #generateGreeting:active, #shareWhatsApp:active {
+             transform: translateY(0px);
+        }
+
+        #greetingOutput {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 1.8em; /* Adjust as needed */
+            line-height: 1.4; /* For better readability if name is long */
+            font-weight: bold;
+            color: var(--secondary-color);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+            position: relative; 
+            overflow: hidden; 
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: gold;
+            border-radius: 50%;
+            opacity: 0;
+            animation: firework-burst 1s ease-out forwards;
+        }
+
+        @keyframes firework-burst {
+            0% {
+                transform: scale(0.5) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.2) translateY(-90px); 
+                opacity: 0;
+            }
+        }
+        
+        footer {
+            margin-top: auto; 
+            padding: 15px;
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.7);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin-left: 10px;
+                margin-right: 10px;
+                padding: 15px;
+                width: auto;
+            }
+            h1 {
+                font-size: 2.2em;
+            }
+            #greetingOutput {
+                font-size: 1.4em;
+            }
+            .video-controls button, #generateGreeting, #shareWhatsApp {
+                font-size: 0.9em;
+                padding: 10px 12px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Eid Mubarak!</h1>
+
+        <div class="video-player-container">
+            <video id="eidVideo" autoplay loop playsinline>
+                <!-- Video source will be set by JavaScript -->
+                 क्षमा करें, आपका ब्राउज़र एम्बेडेड वीडियो का समर्थन नहीं करता है।
+            </video>
+        </div>
+
+        <div class="video-controls">
+            <button id="prevVideo">🌙 पिछला वीडियो</button>
+            <button id="nextVideo">अगला वीडियो 🌟</button>
+        </div>
+
+        <div class="personalization-area">
+            <input type="text" id="userName" placeholder="अपना नाम लिखें (जैसे: Salman)">
+            <button id="generateGreeting">💌 शुभकामनाएं बनाएं</button>
+        </div>
+
+        <div id="greetingOutput" class="hidden">
+            <!-- Greeting text will be here -->
+        </div>
+
+        <button id="shareWhatsApp" class="hidden">💬 WhatsApp पर शेयर करें</button>
+    </div>
+
+    <footer>
+        <p>© <span id="currentYear"></span> Eid Greetings. Happy Eid to All!</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoElement = document.getElementById('eidVideo');
+            const prevButton = document.getElementById('prevVideo');
+            const nextButton = document.getElementById('nextVideo');
+            const userNameInput = document.getElementById('userName');
+            const generateGreetingButton = document.getElementById('generateGreeting');
+            const greetingOutputDiv = document.getElementById('greetingOutput');
+            const shareWhatsAppButton = document.getElementById('shareWhatsApp');
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            const videoSources = [
+                'assets/template1.mp4',
+                'assets/template2.mp4',
+                'assets/template3.mp4',
+                'assets/template4.mp4',
+                'assets/template5.mp4'
+            ];
+            let currentVideoIndex = 0;
+            let generatedName = "";
+            let hasInteracted = false; // To track user interaction for autoplay fallback
+
+            function attemptPlayVideo() {
+                if (videoElement.paused) { // Try to play only if paused
+                    videoElement.play().then(() => {
+                        // Playback started successfully
+                    }).catch(error => {
+                        console.warn("Video play attempt failed:", error);
+                        // If it still fails, it might be due to other restrictions.
+                    });
+                }
+            }
+
+            // Fallback for autoplay with sound: play on first user interaction
+            function userInteractionListener() {
+                if (!hasInteracted) {
+                    hasInteracted = true;
+                    attemptPlayVideo();
+                    // Remove listener after first interaction
+                    document.removeEventListener('click', userInteractionListener);
+                    document.removeEventListener('touchstart', userInteractionListener);
+                }
+            }
+            document.addEventListener('click', userInteractionListener);
+            document.addEventListener('touchstart', userInteractionListener);
+
+
+            function loadVideo(index) {
+                if (index >= 0 && index < videoSources.length) {
+                    currentVideoIndex = index;
+                    videoElement.src = videoSources[currentVideoIndex];
+                    videoElement.load(); 
+                    
+                    // Attempt to play. Browsers might block autoplay with sound.
+                    videoElement.play().then(() => {
+                        // Autoplay started
+                    }).catch(error => {
+                        console.warn("Autoplay with sound was initially prevented. Will try on user interaction.", error);
+                        // Fallback to play on user interaction is already set up
+                    });
+                }
+            }
+
+            function triggerFireworks() {
+                const existingP = greetingOutputDiv.querySelector('p');
+                if (existingP) {
+                    existingP.textContent = `${generatedName} की तरफ से आपको ईद मुबारक! 🎉`;
+                } else {
+                    greetingOutputDiv.innerHTML = ''; 
+                    const greetingText = document.createElement('p');
+                    greetingText.textContent = `${generatedName} की तरफ से आपको ईद मुबारक! 🎉`;
+                    greetingOutputDiv.appendChild(greetingText);
+                }
+
+                for (let i = 0; i < 20; i++) { 
+                    const firework = document.createElement('div');
+                    firework.classList.add('firework');
+                    
+                    firework.style.left = `${Math.random() * 90 + 5}%`; 
+                    firework.style.bottom = `${Math.random() * 20}%`; 
+                    firework.style.animationDelay = `${Math.random() * 0.8}s`;
+                    
+                    const hue = 30 + Math.random() * 30; 
+                    firework.style.background = `hsl(${hue}, 100%, ${60 + Math.random()*20}%)`; 
+                    firework.style.boxShadow = `0 0 6px hsl(${hue}, 100%, 60%), 0 0 12px hsl(${hue}, 100%, 50%)`;
+
+                    greetingOutputDiv.appendChild(firework);
+
+                    firework.addEventListener('animationend', () => {
+                        firework.remove();
+                    });
+                }
+            }
+
+            function displayGreeting() {
+                generatedName = userNameInput.value.trim();
+                if (!generatedName) {
+                    alert('कृपया अपना नाम लिखें।');
+                    userNameInput.focus();
+                    return;
+                }
+
+                triggerFireworks(); 
+                greetingOutputDiv.classList.remove('hidden');
+                shareWhatsAppButton.classList.remove('hidden');
+            }
+            
+            prevButton.addEventListener('click', () => {
+                currentVideoIndex = (currentVideoIndex - 1 + videoSources.length) % videoSources.length;
+                loadVideo(currentVideoIndex);
+            });
+
+            nextButton.addEventListener('click', () => {
+                currentVideoIndex = (currentVideoIndex + 1) % videoSources.length;
+                loadVideo(currentVideoIndex);
+            });
+
+            generateGreetingButton.addEventListener('click', displayGreeting);
+
+            shareWhatsAppButton.addEventListener('click', () => {
+                if (!generatedName) {
+                    alert('पहले शुभकामनाएं बनाएं।');
+                    return;
+                }
+                const pageUrl = window.location.href.split('?')[0]; 
+                const shareLink = `${pageUrl}?name=${encodeURIComponent(generatedName)}&video=${currentVideoIndex}`;
+                
+                const greetingEnglish = `A special Eid Mubarak to you from ${generatedName}!`; // Modified for "from Name"
+                const greetingHindi = `${generatedName} की तरफ से आपको ईद मुबारक!`;
+                const greetingUrdu = `${generatedName} کی جانب سے آپ کو عید مبارک!`;
+                const greetingBengali = `${generatedName} এর পক্ষ থেকে আপনাকে ঈদ মোবারকের শুভেচ্ছা!`; // "er pokhkho theke" = "from"
+
+                const ctaHindi = "आप भी अपने नाम से ऐसी ही ईद की शुभकामनाएं भेजना चाहते हैं? नीचे दिए गए लिंक पर क्लिक करें और अपनी विशेष शुभकामनाएं बनाएं:";
+                
+                const message = `🌙✨ *Eid Mubarak!* ✨🕌\n\n` +
+                                `${greetingEnglish}\n` +
+                                `${greetingHindi}\n` +
+                                `${greetingUrdu}\n` + 
+                                `${greetingBengali}\n\n` +
+                                `इस खास मौके पर ${generatedName} का यह वीडियो देखें:\n` + // Personalized video mention
+                                `${shareLink}\n\n` +
+                                `------------------------------------\n` +
+                                `${ctaHindi}\n` +
+                                `${shareLink}`;
+                
+                const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            });
+
+            // Handle URL parameters on page load
+            const urlParams = new URLSearchParams(window.location.search);
+            const nameFromUrl = urlParams.get('name');
+            const videoIndexFromUrl = urlParams.get('video');
+
+            let initialVideoIdx = 0;
+            if (videoIndexFromUrl !== null) {
+                const vidIdx = parseInt(videoIndexFromUrl);
+                if (!isNaN(vidIdx) && vidIdx >= 0 && vidIdx < videoSources.length) {
+                    initialVideoIdx = vidIdx;
+                }
+            }
+            
+            loadVideo(initialVideoIdx); 
+
+            if (nameFromUrl) {
+                userNameInput.value = nameFromUrl;
+                generatedName = nameFromUrl; 
+                displayGreeting(); 
+            }
+        });
+    </script>
+
+</body>
+</html>
