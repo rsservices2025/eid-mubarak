@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eid Mubarak! Special Greetings</title>
+    
+    <!-- Open Graph Meta Tags for better link sharing previews -->
+    <meta property="og:title" content="✨ Eid Mubarak Wishes! Create Yours!">
+    <meta property="og:description" content="Personalize your Eid greetings with a special video, name, and a fun GIF! Share with your loved ones.">
+    <meta property="og:image" content="https://eid-mubarak-olive.vercel.app/assets/share.gif"> 
+    <meta property="og:image:type" content="image/gif">
+    <!-- Optional: Add GIF dimensions if known
+    <meta property="og:image:width" content="480"> 
+    <meta property="og:image:height" content="360">
+    -->
+    <meta property="og:url" content="https://eid-mubarak-olive.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Eid Greetings Generator">
+
+
+    <style>
+        :root {
+            --primary-color: #0a4a70; 
+            --secondary-color: #f0c040; 
+            --accent-color: #ffffff; 
+            --success-color: #28a745;
+            --telegram-color: #0088cc;
+            --glow-color: rgba(240, 192, 64, 0.8); /* Brighter glow */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0; 
+            padding-bottom: 70px; /* Space for potential sticky footer ads like Social Bar */
+            background-image: url('assets/background.jpeg'); 
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--accent-color); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            background-color: rgba(0, 20, 40, 0.92); 
+            padding: 20px 25px; 
+            border-radius: 18px; 
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65);
+            text-align: center;
+            margin-top: 15px; 
+            margin-bottom: 15px;
+            max-width: 90%;
+            width: 580px; 
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--secondary-color);
+            font-size: 2.4em; 
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 7px rgba(0,0,0,0.75);
+        }
+
+        .video-player-container {
+            margin-bottom: 15px; background: #000; border-radius: 12px; 
+            overflow: hidden; animation: pulseGlow 2s infinite alternate ease-in-out; 
+            position: relative; line-height: 0; 
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 8px var(--glow-color), 0 0 15px var(--glow-color), 0 0 20px var(--secondary-color); }
+            100% { box-shadow: 0 0 18px var(--glow-color), 0 0 35px var(--glow-color), 0 0 50px var(--secondary-color); }
+        }
+
+        #eidVideo { width: 100%; height: auto; border-radius: 12px; display: block; }
+
+        .video-controls { display: flex; justify-content: space-between; margin-top: 12px; }
+        .video-controls button {
+            background-color: var(--secondary-color); color: var(--primary-color); border: none;
+            padding: 9px 14px; border-radius: 8px; cursor: pointer; font-size: 0.9em; font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+        }
+        .video-controls button:hover { background-color: #e0b030; transform: translateY(-2px); }
+        .video-controls button:active { transform: translateY(0px); }
+
+        .personalization-area { margin-top: 18px; }
+        #userName {
+            padding: 11px; border-radius: 8px; border: 2px solid var(--secondary-color); font-size: 1em;
+            width: calc(100% - 26px); margin-bottom: 12px; box-sizing: border-box;
+            background-color: rgba(255,255,255,0.12); color: var(--accent-color);
+        }
+        #userName::placeholder { color: rgba(255,255,255,0.65); }
+
+        #generateGreeting {
+            background-color: var(--primary-color); color: var(--secondary-color); border: 2px solid var(--secondary-color);
+            padding: 11px 20px; border-radius: 8px; cursor: pointer; font-size: 1.05em; font-weight: bold;
+            margin-top: 5px; transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+            width: 100%; box-sizing: border-box; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        #generateGreeting:hover { background-color: var(--secondary-color); color: var(--primary-color); transform: translateY(-2px); }
+        #generateGreeting:active { transform: translateY(0px); }
+
+        #greetingOutput {
+            margin-top: 18px; padding: 15px; background-color: rgba(255, 255, 255, 0.07);
+            border-radius: 12px; position: relative; overflow: hidden; 
+        }
+        #greetingOutput p {
+            font-size: 1.1em; line-height: 1.5; font-weight: bold; color: var(--secondary-color);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7); margin: 8px 0;
+        }
+        #greetingOutput p.urdu { font-family: 'Noto Nastaliq Urdu', 'Arial', sans-serif; font-size: 1.3em; direction: rtl; }
+
+        #sharedGifImage {
+            max-width: 65%; height: auto; border-radius: 10px; margin-top: 18px;
+            border: 2px solid var(--secondary-color); box-shadow: 0 0 12px var(--secondary-color);
+        }
+        
+        .hidden { display: none !important; } 
+
+        .firework {
+            position: absolute; width: 3.5px; height: 3.5px; background: gold;
+            border-radius: 50%; opacity: 0; animation: firework-burst 0.9s ease-out forwards;
+        }
+        @keyframes firework-burst {
+            0% { transform: scale(0.5) translateY(0); opacity: 1; }
+            100% { transform: scale(1.2) translateY(-80px); opacity: 0; }
+        }
+
+        .share-options { margin-top: 18px; display: flex; flex-direction: column; gap: 9px; }
+        .share-options button {
+            color: white; border: none; padding: 11px 15px; border-radius: 8px; cursor: pointer;
+            font-size: 0.95em; font-weight: bold; transition: opacity 0.3s ease, transform 0.2s ease;
+            width: 100%; box-sizing: border-box; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .share-options button:hover { opacity: 0.85; transform: translateY(-2px); }
+        .share-options button:active { transform: translateY(0px); }
+
+        #shareWhatsApp { background-color: var(--success-color); }
+        #shareWhatsAppBusiness { background-color: #209E43; }
+        #shareTelegram { background-color: var(--telegram-color); }
+        
+        /* Ad Containers Styling */
+        .ad-container { margin-top: 20px; text-align: center; width: 100%; }
+        #adBannerContainer { min-height: 60px;  }
+        #adNativeBannerContainer { margin-top: 15px; min-height: 100px;  }
+        #adBannerContainer iframe { display: block; margin: 0 auto; }
+
+
+        footer {
+            margin-top: auto; padding: 12px; font-size: 0.85em; color: rgba(255,255,255,0.9);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7); text-align: center; width: 100%;
+            z-index: 0; 
+        }
+
+        @media (max-width: 600px) {
+            .container { margin-left: 8px; margin-right: 8px; padding: 15px; width: auto; }
+            h1 { font-size: 2em; }
+            #greetingOutput p { font-size: 1em; }
+            #greetingOutput p.urdu { font-size: 1.2em; }
+            .video-controls button, #generateGreeting, .share-options button { font-size: 0.9em; padding: 9px 12px; }
+            #sharedGifImage { max-width: 75%; }
+            #adBannerContainer { width: 100%; overflow: hidden;  }
+            #adBannerContainer iframe { max-width: 100%; }
+        }
+        @media (max-width: 480px) { 
+            #adBannerContainer {
+                display: flex; 
+                justify-content: center;
+            }
+        }
+
+    </style>
+    <!-- For Urdu Font - Noto Nastaliq Urdu -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Eid Mubarak!</h1>
+
+        <div class="video-player-container">
+            <video id="eidVideo" autoplay loop playsinline>
+                 क्षमा करें, आपका ब्राउज़र एम्बेडेड वीडियो का समर्थन नहीं करता है।
+            </video>
+        </div>
+
+        <div class="video-controls">
+            <button id="prevVideo">🌙 पिछला वीडियो</button>
+            <button id="nextVideo">अगला वीडियो 🌟</button>
+        </div>
+
+        <div class="personalization-area">
+            <input type="text" id="userName" placeholder="अपना नाम लिखें (जैसे: Salman)">
+            <button id="generateGreeting">💌 शुभकामनाएं बनाएं</button>
+        </div>
+
+        <div id="greetingOutput" class="hidden">
+            <!-- Greeting text will be here in multiple languages -->
+        </div>
+        <img id="sharedGifImage" src="assets/share.gif" alt="Eid Mubarak GIF" class="hidden">
+
+
+        <div id="shareOptionsContainer" class="share-options hidden">
+            <button id="shareWhatsApp">💬 WhatsApp पर शेयर करें</button>
+            <button id="shareWhatsAppBusiness">💼 WhatsApp Business पर शेयर करें</button>
+            <button id="shareTelegram">✈️ Telegram पर शेयर करें</button>
+        </div>
+
+        <!-- Adsterra Banner Ad Container -->
+        <div id="adBannerContainer" class="ad-container hidden"> 
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : 'cbd585a65b1ab1fcec8e55166b85ea14',
+                    'format' : 'iframe',
+                    'height' : 60,
+                    'width' : 468,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/cbd585a65b1ab1fcec8e55166b85ea14/invoke.js"></script>
+        </div>
+
+        <!-- Adsterra Native Banner Ad Container -->
+        <div id="adNativeBannerContainer" class="ad-container hidden">
+            <script async="async" data-cfasync="false" src="//pl26838588.profitableratecpm.com/97ef0bc81eb940d0c08adcec414dca3a/invoke.js"></script>
+            <div id="container-97ef0bc81eb940d0c08adcec414dca3a"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© <span id="currentYear"></span> Eid Greetings. Happy Eid to All!</p>
+    </footer>
+
+    <!-- Adsterra Social Bar Ad (Best placed before closing </body> tag) -->
+    <script type='text/javascript' src='//pl26838577.profitableratecpm.com/f9/61/77/f961779190740fe39ede0cf26929bc54.js'></script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoElement = document.getElementById('eidVideo');
+            const prevButton = document.getElementById('prevVideo');
+            const nextButton = document.getElementById('nextVideo');
+            const userNameInput = document.getElementById('userName');
+            const generateGreetingButton = document.getElementById('generateGreeting');
+            const greetingOutputDiv = document.getElementById('greetingOutput');
+            const sharedGifImage = document.getElementById('sharedGifImage');
+            
+            const adBannerContainer = document.getElementById('adBannerContainer');
+            const adNativeBannerContainer = document.getElementById('adNativeBannerContainer');
+            
+            const shareOptionsContainer = document.getElementById('shareOptionsContainer');
+            const shareWhatsAppButton = document.getElementById('shareWhatsApp');
+            const shareWhatsAppBusinessButton = document.getElementById('shareWhatsAppBusiness');
+            const shareTelegramButton = document.getElementById('shareTelegram');
+            
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            const videoSources = [
+                'assets/template1.mp4', 'assets/template2.mp4', 'assets/template3.mp4',
+                'assets/template4.mp4', 'assets/template5.mp4'
+            ];
+            let currentVideoIndex = 0;
+            let generatedName = "";
+            let hasInteracted = false; 
+
+            // The JavaScript function updateOgUrl is no longer strictly needed 
+            // as we have hardcoded the live URL in the meta tags. 
+            // However, keeping it won't harm and might be useful if you 
+            // revert to placeholders for local development.
+            function updateOgUrl() {
+                const ogUrlMeta = document.querySelector('meta[property="og:url"]');
+                const ogImageMeta = document.querySelector('meta[property="og:image"]');
+                
+                // If the URL in meta tag is still the Vercel one, no need to change.
+                // This function was primarily for placeholder replacement.
+                // If you deploy to a new URL later, you'd update the HTML meta tags directly.
+                if (ogUrlMeta && !ogUrlMeta.getAttribute('content').startsWith('http')) {
+                    // This part would execute if you had a placeholder like "YOUR_URL_HERE"
+                    const baseUrl = window.location.origin + window.location.pathname.split('?')[0];
+                    ogUrlMeta.setAttribute('content', baseUrl);
+                    if (ogImageMeta && !ogImageMeta.getAttribute('content').startsWith('http')) {
+                         ogImageMeta.setAttribute('content', window.location.origin + '/assets/share.gif');
+                    }
+                } else if (ogUrlMeta && ogUrlMeta.getAttribute('content').includes('?')) {
+                    // Ensure query params are stripped if any were added dynamically by JS (unlikely now)
+                     ogUrlMeta.setAttribute('content', ogUrlMeta.getAttribute('content').split('?')[0]);
+                }
+            }
+            updateOgUrl(); // Call on initial load, though less critical now.
+
+
+            function attemptPlayVideo() {
+                if (videoElement.paused) { 
+                    videoElement.play().then(() => {}).catch(error => {
+                        console.warn("Video play attempt failed:", error);
+                    });
+                }
+            }
+
+            function userInteractionListener() {
+                if (!hasInteracted) {
+                    hasInteracted = true;
+                    attemptPlayVideo();
+                    document.removeEventListener('click', userInteractionListener);
+                    document.removeEventListener('touchstart', userInteractionListener);
+                }
+            }
+            document.addEventListener('click', userInteractionListener);
+            document.addEventListener('touchstart', userInteractionListener);
+
+            function loadVideo(index) {
+                if (index >= 0 && index < videoSources.length) {
+                    currentVideoIndex = index;
+                    videoElement.src = videoSources[currentVideoIndex]; // Relative path for assets
+                    videoElement.load(); 
+                    videoElement.play().then(() => {}).catch(error => {
+                        console.warn("Autoplay with sound was initially prevented.", error);
+                    });
+                }
+            }
+
+            function generateGreetingMessages(name) {
+                return {
+                    english: `From ${name}, wishing you a very Happy Eid Mubarak! 🕌✨`,
+                    hindi: `${name} की तरफ से आपको ईद मुबारक! 🎉`,
+                    urdu: `${name} کی جانب سے آپ کو عید مبارک! 🌙`,
+                    bengali: `${name} এর পক্ষ থেকে আপনাকে ঈদ মোবারকের শুভেচ্ছা! 🎊`
+                };
+            }
+
+            function displayGreetingOnPage() {
+                const messages = generateGreetingMessages(generatedName);
+                greetingOutputDiv.innerHTML = ''; 
+
+                const pEnglish = document.createElement('p'); pEnglish.textContent = messages.english;
+                greetingOutputDiv.appendChild(pEnglish);
+
+                const pHindi = document.createElement('p'); pHindi.textContent = messages.hindi;
+                greetingOutputDiv.appendChild(pHindi);
+                
+                const pUrdu = document.createElement('p'); pUrdu.textContent = messages.urdu;
+                pUrdu.classList.add('urdu'); 
+                greetingOutputDiv.appendChild(pUrdu);
+
+                const pBengali = document.createElement('p'); pBengali.textContent = messages.bengali;
+                greetingOutputDiv.appendChild(pBengali);
+
+                triggerFireworksAnimation();
+            }
+            
+            function triggerFireworksAnimation() {
+                const existingFireworks = greetingOutputDiv.querySelectorAll('.firework');
+                existingFireworks.forEach(fw => fw.remove());
+
+                for (let i = 0; i < 15; i++) { 
+                    const firework = document.createElement('div');
+                    firework.classList.add('firework');
+                    firework.style.left = `${Math.random() * 90 + 5}%`; 
+                    firework.style.bottom = `${Math.random() * 20 + 5}%`; 
+                    firework.style.animationDelay = `${Math.random() * 0.6}s`;
+                    const hue = 30 + Math.random() * 30; 
+                    firework.style.background = `hsl(${hue}, 100%, ${60 + Math.random()*20}%)`; 
+                    firework.style.boxShadow = `0 0 5px hsl(${hue}, 100%, 60%), 0 0 10px hsl(${hue}, 100%, 50%)`;
+                    greetingOutputDiv.appendChild(firework);
+                    firework.addEventListener('animationend', () => firework.remove());
+                }
+            }
+
+            function showGeneratedContent() {
+                generatedName = userNameInput.value.trim();
+                if (!generatedName) {
+                    alert('कृपया अपना नाम लिखें।');
+                    userNameInput.focus();
+                    return;
+                }
+
+                displayGreetingOnPage(); 
+                greetingOutputDiv.classList.remove('hidden');
+                sharedGifImage.classList.remove('hidden'); 
+                shareOptionsContainer.classList.remove('hidden'); 
+                adBannerContainer.classList.remove('hidden'); 
+                adNativeBannerContainer.classList.remove('hidden');
+            }
+            
+            prevButton.addEventListener('click', () => {
+                currentVideoIndex = (currentVideoIndex - 1 + videoSources.length) % videoSources.length;
+                loadVideo(currentVideoIndex);
+            });
+
+            nextButton.addEventListener('click', () => {
+                currentVideoIndex = (currentVideoIndex + 1) % videoSources.length;
+                loadVideo(currentVideoIndex);
+            });
+
+            generateGreetingButton.addEventListener('click', showGeneratedContent);
+
+            function getShareMessageAndLink() {
+                // Use the hardcoded live URL for sharing
+                const pageUrl = "https://eid-mubarak-olive.vercel.app/"; 
+                const shareLink = `${pageUrl}?name=${encodeURIComponent(generatedName)}&video=${currentVideoIndex}`;
+                
+                const greetingsForShare = generateGreetingMessages(generatedName);
+                const greetingHindi = greetingsForShare.hindi;
+                const greetingBengali = greetingsForShare.bengali;
+
+                const ctaHindi = "आप भी अपने नाम से ऐसी ही ईद की शुभकामनाएं भेजना चाहते हैं? नीचे दिए गए लिंक पर क्लिक करें और अपनी विशेष शुभकामनाएं बनाएं:";
+                
+                const fullMessage = `🌙✨ *Eid Mubarak!* ✨🕌\n\n` +
+                                `${greetingHindi}\n` +
+                                `${greetingBengali}\n\n` +
+                                `इस खास मौके पर ${generatedName} की यह विशेष भेंट (वीडियो और शुभकामनाएं) देखें:\n` + 
+                                `${shareLink}\n\n` +
+                                `------------------------------------\n` +
+                                `${ctaHindi}\n` +
+                                `${shareLink}`;
+                return { fullMessage, shareLink };
+            }
+
+            function shareContent(platformUrlTemplate) {
+                 if (!generatedName) { alert('पहले शुभकामनाएं बनाएं।'); return; }
+                const { fullMessage, shareLink } = getShareMessageAndLink();
+                let url;
+                if (platformUrlTemplate.includes('{TEXT}') && platformUrlTemplate.includes('{URL}')) { 
+                    url = platformUrlTemplate.replace('{URL}', encodeURIComponent(shareLink))
+                                             .replace('{TEXT}', encodeURIComponent(fullMessage));
+                } else { 
+                    url = platformUrlTemplate.replace('{TEXT}', encodeURIComponent(fullMessage));
+                }
+                window.open(url, '_blank');
+            }
+
+            shareWhatsAppButton.addEventListener('click', () => {
+                shareContent('https://api.whatsapp.com/send?text={TEXT}');
+            });
+            
+            shareWhatsAppBusinessButton.addEventListener('click', () => {
+                 shareContent('https://api.whatsapp.com/send?text={TEXT}'); 
+            });
+
+            shareTelegramButton.addEventListener('click', () => {
+                shareContent('https://t.me/share/url?url={URL}&text={TEXT}');
+            });
+
+            // Handle URL parameters on page load
+            const urlParams = new URLSearchParams(window.location.search);
+            const nameFromUrl = urlParams.get('name');
+            const videoIndexFromUrl = urlParams.get('video');
+
+            let initialVideoIdx = 0;
+            if (videoIndexFromUrl !== null) {
+                const vidIdx = parseInt(videoIndexFromUrl);
+                if (!isNaN(vidIdx) && vidIdx >= 0 && vidIdx < videoSources.length) {
+                    initialVideoIdx = vidIdx;
+                }
+            }
+            
+            loadVideo(initialVideoIdx); 
+
+            if (nameFromUrl) {
+                userNameInput.value = nameFromUrl;
+                generatedName = nameFromUrl; 
+                showGeneratedContent(); 
+            }
+        });
+    </script>
+
+</body>
+</html>
